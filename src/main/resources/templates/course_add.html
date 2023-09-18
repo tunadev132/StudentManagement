@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+  <script src= "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
+
+  <style>
+    .btn {
+      border-radius: 8px;
+      min-width: 68px;
+    }
+
+    button a {
+      text-decoration: none;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="~{comman/header :: navbar}"></div>
+<div align="center">
+  <div class="col-sm-4">
+    <form action="#" th:action="@{/course/save}" th:object="${course}" method="post">
+      <input type="hidden" name="action" th:value="${action}">
+      <br/>
+      <h2 th:if="${course.courseName != null && course.id > 0}">Edit Course</h2>
+      <h2 th:unless="${course.id != null && course.id > 0}">Create New Course</h2>
+      <br/>
+      <div class="border border-secondary rounded p-3">
+      <div class="form-group text-left">
+        <label class="form-label">Course Name</label>
+        <input type="hidden" th:field="*{id}"/>
+        <input type="text" class="form-control" th:field="*{courseName}" placeholder="Enter course name">
+      </div>
+      <div class="form-group text-left">
+        <label class="form-label">Time start</label>
+        <input type="date" th:field="*{time}" class="form-control" placeholder="Time start" />
+      </div>
+      <div class="form-group text-left">
+        <label class="form-label">Description</label>
+        <input type="text" th:field="*{description}" class="form-control" placeholder="Description" />
+      </div>
+      <div class="form-group mb-0" align="right">
+        <button type="submit" class="btn btn-info">Save</button>
+        <button type="button" class="btn btn-secondary"><a th:href="@{/course}">Back</a></button>
+      </div>
+      </div>
+    </form>
+  </div>
+</div>
+</body>
+</html>

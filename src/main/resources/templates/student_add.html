@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/4.5.2/cosmo/bootstrap.min.css" />
+  <script src= "https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" ></script>
+
+  <style>
+    .btn {
+      border-radius: 8px;
+      min-width: 68px;
+    }
+
+    button a {
+      text-decoration: none;
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+<div th:replace="~{comman/header :: navbar}"></div>
+<div align="center">
+  <div class="col-sm-4">
+    <form action="#" th:action="@{/student/save}" th:object="${student}" method="post">
+      <br/>
+      <h2 th:if="${student.id != null && student.id > 0}">Edit Student</h2>
+      <h2 th:unless="${student.id != null && student.id > 0}">Create New Student</h2>
+      <br/>
+      <input type="hidden" name="action" th:value="${action}">
+      <div class="border border-secondary rounded p-3">
+        <div class="form-group text-left">
+          <label class="form-label">Student ID</label>
+          <input type="hidden" th:field="*{id}"/>
+          <input required maxlength="6" type="text" class="form-control" th:field="*{sid}" placeholder="Enter Student ID">
+        </div>
+        <div class="form-group text-left">
+          <label class="form-label">Student Name</label>
+          <input type="hidden" th:field="*{id}"/>
+          <input required type="text" class="form-control" th:field="*{name}" placeholder="Enter name">
+        </div>
+        <div class="form-group text-left">
+          <label class="form-label mb-0" >Gender</label>
+          <div class="custom-control custom-radio custom-control-inline ml-4">
+            <input type="radio" id="gender1" name="gender" class="custom-control-input" value="true" th:field="*{gender}">
+            <label class="custom-control-label" for="gender1">Nam</label>
+          </div>
+          <div class="custom-control custom-radio custom-control-inline">
+            <input type="radio" id="gender2" name="gender" class="custom-control-input" value="false" th:field="*{gender}">
+            <label class="custom-control-label" for="gender2">Nữ</label>
+          </div>
+        </div>
+        <div class="form-group text-left">
+          <label class="form-label">Birthday</label>
+          <input required type="date" th:field="*{birthday}" th:attr="value=${#dates.format(student.birthday, 'yyyy-MM-dd')}" class="form-control" placeholder="Birthday" />
+        </div>
+        <div class="form-group text-left">
+          <label class="form-label">Phone</label>
+          <input required type="text" th:field="*{phone}" class="form-control" placeholder="Phone" />
+        </div>
+        <div class="form-group text-left">
+          <label class="form-label">Email</label>
+          <input required type="email" th:field="*{email}" class="form-control" placeholder="Email" />
+        </div>
+        <div class="form-group mb-0" align="right">
+          <button type="submit" class="btn btn-info">Save</button>
+          <button type="button" class="btn btn-secondary"><a th:href="@{/student}">Back</a></button>
+        </div>
+      </div>
+
+    </form>
+  </div>
+</div>
+</body>
+</html>
